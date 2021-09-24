@@ -39,7 +39,7 @@ data_transform = transforms.Compose([
      transforms.ToTensor()
     ])
 # Dataset を作成する。
-dataset = ImageFolder("./gdrive/My Drive/研究/本研究/colab/スクレイピング /sample_data/", data_transform)
+dataset = torchvision.datasets.ImageFolder("./gdrive/My Drive/研究/本研究/colab/スクレイピング /sample_data/", data_transform)
 train_data_dir = './gdrive/My Drive/研究/本研究/colab/スクレイピング /sample_data/train'
 val_data_dir = './gdrive/My Drive/研究/本研究/colab/スクレイピング /sample_data/test'
 
@@ -163,6 +163,10 @@ def train(model, dataloader, otpimizer, criterion, num_epochs, device):
             if phase == 'test' and epoch_acc > best_acc:
                 print(f"save model epoch:{epoch} loss:{epoch_loss} acc:{epoch_acc}")
                 torch.save(model, 'best_model.pth')
+
+
+num_epochs = 10
+train(model, dataloaders, optimizer, criterion, num_epochs, device)
 
 # 今回学習したモデルでテスト
 best_model = torch.load('best_model.pth')
